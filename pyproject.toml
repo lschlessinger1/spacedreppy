@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "spacedreppy"
+version = "0.1.0"
+description = "A spaced repetition Python library."
+authors = ["Louis Schlessinger <2996982+lschlessinger1@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+keywords = [
+    "Spaced-repetition"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
