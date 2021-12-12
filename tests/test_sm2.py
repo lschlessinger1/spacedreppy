@@ -5,6 +5,11 @@ import pytest
 from spacedreppy.schedulers.sm2 import sm2, SM2Scheduler
 
 
+@pytest.fixture
+def scheduler():
+    return SM2Scheduler()
+
+
 def test_sm2_return_types():
     interval, repetitions, easiness = sm2(quality=3, interval=2, repetitions=2, easiness=2)
     assert isinstance(interval, int)
@@ -58,8 +63,7 @@ def test_SM2_update_thrice(qualities, expected_repetitions, expected_interval):
     assert interval == expected_interval
 
 
-def test_sm2_scheduler_initialization():
-    scheduler = SM2Scheduler()
+def test_sm2_scheduler_initialization(scheduler):
     assert scheduler.interval == 0
     assert scheduler.repetitions == 0
     assert scheduler.easiness == 2.5
@@ -74,8 +78,7 @@ def test_sm2_scheduler_initialization():
     (4, 1),
     (5, 1),
 ])
-def test_sm2_scheduler_compute_next_due_interval_once(quality, expected_repetitions):
-    scheduler = SM2Scheduler()
+def test_sm2_scheduler_compute_next_due_interval_once(scheduler, quality, expected_repetitions):
     attempted_at = datetime.datetime.utcnow()
     due_timestamp, interval = scheduler.compute_next_due_interval(attempted_at=attempted_at, result=quality)
     assert isinstance(due_timestamp, datetime.datetime)
@@ -95,8 +98,7 @@ def test_sm2_scheduler_compute_next_due_interval_once(quality, expected_repetiti
     ((4, 2), 0, 1),
     ((5, 3), 2, 6),
 ])
-def test_sm2_scheduler_compute_next_due_interval_twice(qualities, expected_repetitions, expected_interval):
-    scheduler = SM2Scheduler()
+def test_sm2_scheduler_compute_next_due_interval_twice(scheduler, qualities, expected_repetitions, expected_interval):
     attempted_at_1 = datetime.datetime(year=2021, month=10, day=13)
     attempted_at_2 = datetime.datetime(year=2021, month=10, day=15)
     due_timestamp_1, interval_1 = scheduler.compute_next_due_interval(attempted_at=attempted_at_1, result=qualities[0])
