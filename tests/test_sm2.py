@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from spacedreppy.schedulers.sm2 import sm2, SM2Scheduler
+from spacedreppy.schedulers.sm2 import SM2Scheduler, sm2
 
 
 @pytest.fixture

@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
 from typing import Tuple
+
+from datetime import datetime, timedelta
 
 from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
 

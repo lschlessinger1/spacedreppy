@@ -1,5 +1,6 @@
+from typing import Optional, Tuple
+
 from datetime import datetime, timedelta
-from typing import Tuple, Optional
 
 
 class SpacedRepetitionScheduler:
