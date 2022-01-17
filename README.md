@@ -34,7 +34,9 @@ from spacedreppy.schedulers.sm2 import SM2Scheduler
 
 # returns next due timestamp and next interval.
 scheduler = SM2Scheduler()
-due_timestamp, interval = scheduler.compute_next_due_interval(attempted_at=datetime.utcnow(), result=3)
+due_timestamp, interval = scheduler.compute_next_due_interval(
+    attempted_at=datetime.utcnow(), result=3
+)
 ```
 
 ## License
