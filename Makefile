@@ -22,6 +22,7 @@ pre-commit-install:
 codestyle:
 	poetry run isort --settings-path pyproject.toml ./
 	poetry run black --config pyproject.toml ./
+	poetry run darglint --verbosity 2 spacedreppy tests
 
 .PHONY: formatting
 formatting: codestyle
