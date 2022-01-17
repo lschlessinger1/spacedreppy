@@ -32,6 +32,7 @@ formatting: codestyle
 .PHONY: test
 test:
 	poetry run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
+	poetry run coverage-badge -o assets/images/coverage.svg -f
 
 .PHONY: check-codestyle
 check-codestyle:
