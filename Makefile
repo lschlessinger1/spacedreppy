@@ -22,5 +22,9 @@ pre-commit-install:
 test:
 	poetry run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
 
+.PHONY: check-safety
+check-safety:
+	poetry check
+
 .PHONY: lint
-lint: test
+lint: test check-safety
