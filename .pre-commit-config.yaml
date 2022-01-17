@@ -14,3 +14,11 @@ repos:
       - id: check-added-large-files
       - id: end-of-file-fixer
         exclude: LICENSE
+
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        entry: poetry run isort --settings-path pyproject.toml
+        types: [python]
+        language: system

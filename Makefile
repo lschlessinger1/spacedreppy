@@ -17,10 +17,22 @@ install:
 pre-commit-install:
 	poetry run pre-commit install
 
+#* Formatters
+.PHONY: codestyle
+codestyle:
+	poetry run isort --settings-path pyproject.toml ./
+
+.PHONY: formatting
+formatting: codestyle
+
 #* Linting
 .PHONY: test
 test:
 	poetry run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
+
+.PHONY: check-codestyle
+check-codestyle:
+	poetry run isort --diff --check-only --settings-path pyproject.toml ./
 
 .PHONY: check-safety
 check-safety:
@@ -29,4 +41,4 @@ check-safety:
 	poetry run bandit -ll --recursive spacedreppy tests
 
 .PHONY: lint
-lint: test check-safety
+lint: test check-codestyle check-safety
