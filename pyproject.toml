@@ -10,7 +10,7 @@ keywords = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pre-commit = "^2.16.0"
 mypy = "^0.931"
 extensions = "^0.4"
@@ -32,7 +32,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 # https://github.com/psf/black
-target-version = ["py38"]
+target-version = ["py39"]
 line-length = 100
 color = true
 
@@ -54,7 +54,7 @@ exclude = '''
 
 [tool.isort]
 # https://github.com/timothycrosley/isort/
-py_version = 310
+py_version = 39
 line_length = 100
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
@@ -67,7 +67,7 @@ color_output = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = 3.8
+python_version = 3.9
 pretty = true
 show_traceback = true
 color_output = true
