@@ -78,7 +78,7 @@ addopts = [
 source = ["tests"]
 
 [coverage.paths]
-source = "{{ cookiecutter.project_name }}"
+source = "spacedreppy"
 
 [coverage.run]
 branch = true
