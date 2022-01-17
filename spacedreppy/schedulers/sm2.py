@@ -1,5 +1,3 @@
-from typing import Any
-
 from datetime import datetime, timedelta
 
 from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
@@ -56,7 +54,7 @@ class SM2Scheduler(SpacedRepetitionScheduler):
         self.easiness = easiness
 
     def _compute_next_due_interval(
-        self, attempted_at: datetime, result: Any
+        self, attempted_at: datetime, result: int
     ) -> tuple[datetime, timedelta]:
         self._update_params(quality=result)
         new_timedelta_interval = timedelta(days=self.interval)
