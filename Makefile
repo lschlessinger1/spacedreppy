@@ -6,3 +6,9 @@ PYTHON := python
 .PHONY: poetry-download
 poetry-download:
 	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | $(PYTHON) -
+
+#* Installation
+.PHONY: install
+install:
+	poetry lock -n && poetry export --without-hashes > requirements.txt
+	poetry install -n
