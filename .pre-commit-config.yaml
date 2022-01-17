@@ -38,3 +38,9 @@ repos:
         entry: poetry run black --config pyproject.toml
         types: [ python ]
         language: system
+
+  -   repo: https://github.com/asottile/blacken-docs
+      rev: v1.12.0
+      hooks:
+        -   id: blacken-docs
+            additional_dependencies: [black==21.12b0]
