@@ -21,6 +21,7 @@ pre-commit-install:
 .PHONY: codestyle
 codestyle:
 	poetry run isort --settings-path pyproject.toml ./
+	poetry run black --config pyproject.toml ./
 
 .PHONY: formatting
 formatting: codestyle
@@ -33,6 +34,7 @@ test:
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
+	poetry run black --diff --check --config pyproject.toml ./
 
 .PHONY: check-safety
 check-safety:
