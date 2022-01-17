@@ -26,6 +26,7 @@ test:
 check-safety:
 	poetry check
 	poetry run safety check --full-report
+	poetry run bandit -ll --recursive spacedreppy tests
 
 .PHONY: lint
 lint: test check-safety
