@@ -5,10 +5,7 @@ from datetime import datetime, timedelta
 from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
 
-def sm2(quality: int,
-        interval: int,
-        repetitions: int,
-        easiness: float) -> Tuple[int, int, float]:
+def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> Tuple[int, int, float]:
     """SuperMemo-2 Algorithm (SM-2).
 
     :param quality: a performance measure ranging 0 (complete blackout) to 5 (perfect response)
@@ -44,20 +41,23 @@ def sm2(quality: int,
 
 
 class SM2Scheduler(SpacedRepetitionScheduler):
-
     def __init__(self, easiness: float = 2.5, interval: int = 0, repetitions: int = 0):
         super().__init__(interval=interval)
         self.easiness = easiness
         self.repetitions = repetitions
 
     def _update_params(self, quality: int) -> None:
-        interval, repetitions, easiness = sm2(quality, self.interval, self.repetitions, self.easiness)
+        interval, repetitions, easiness = sm2(
+            quality, self.interval, self.repetitions, self.easiness
+        )
 
         self.interval = interval
         self.repetitions = repetitions
         self.easiness = easiness
 
-    def _compute_next_due_interval(self, attempted_at: datetime, result) -> Tuple[datetime, timedelta]:
+    def _compute_next_due_interval(
+        self, attempted_at: datetime, result
+    ) -> Tuple[datetime, timedelta]:
         self._update_params(quality=result)
         new_timedelta_interval = timedelta(days=self.interval)
         prev_start_timestamp = self.due_timestamp if self.due_timestamp else attempted_at
