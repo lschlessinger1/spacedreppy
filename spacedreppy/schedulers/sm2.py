@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Any, Tuple
 
 from datetime import datetime, timedelta
 
@@ -56,7 +56,7 @@ class SM2Scheduler(SpacedRepetitionScheduler):
         self.easiness = easiness
 
     def _compute_next_due_interval(
-        self, attempted_at: datetime, result
+        self, attempted_at: datetime, result: Any
     ) -> Tuple[datetime, timedelta]:
         self._update_params(quality=result)
         new_timedelta_interval = timedelta(days=self.interval)
