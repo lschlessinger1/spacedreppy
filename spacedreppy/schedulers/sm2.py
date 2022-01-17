@@ -6,11 +6,15 @@ from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionS
 def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> tuple[int, int, float]:
     """SuperMemo-2 Algorithm (SM-2).
 
-    :param quality: a performance measure ranging 0 (complete blackout) to 5 (perfect response)
-    :param interval: the number of consecutive correct answers (quality >= 3)
-    :param repetitions: inter-repetition interval after the n-th repetition (in days)
-    :param easiness: easiness factor reflecting the easiness of memorizing and retaining a given item in memory
-    :return: the new interval, repetition number, and easiness
+    Args:
+        quality: A performance measure ranging 0 (complete blackout) to 5 (perfect response).
+        interval: The number of consecutive correct answers (quality >= 3).
+        repetitions: Inter-repetition interval after the n-th repetition (in days).
+        easiness: Easiness factor reflecting the easiness of memorizing and retaining a given item in memory.
+
+    Returns:
+        The new interval, repetition number, and easiness.
+
     Algorithm SM-2, (C) Copyright SuperMemo World, 1991.
 
     https://www.supermemo.com
