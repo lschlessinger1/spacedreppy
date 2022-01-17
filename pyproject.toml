@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "spacedreppy"
-version = "0.1.1"
+version = "0.1.2"
 description = "A spaced repetition Python library."
 authors = ["Louis Schlessinger <2996982+lschlessinger1@users.noreply.github.com>"]
 license = "MIT"
@@ -11,20 +11,19 @@ keywords = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pre-commit = "^2.16.0"
-mypy = "^0.931"
-extensions = "^0.4"
-coverage-badge = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
+coverage-badge = "^1.1.0"
 bandit = "^1.7.1"
 safety = "^1.10.3"
+pre-commit = "^2.16.0"
 isort = {extras = ["colors"], version = "^5.10.1"}
 black = {version = "^21.12b0", allow-prereleases = true}
 darglint = "^1.8.1"
 mypy = "^0.931"
+mypy-extensions = "^0.4.3"
 pyupgrade = "^2.31.0"
 
 [build-system]
