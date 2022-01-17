@@ -16,7 +16,7 @@ install:
 #* Linting
 .PHONY: test
 test:
-	poetry run pytest -c pyproject.toml tests/
+	poetry run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
 
 .PHONY: lint
 lint: test
