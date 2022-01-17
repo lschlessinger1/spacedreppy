@@ -12,3 +12,11 @@ poetry-download:
 install:
 	poetry lock -n && poetry export --without-hashes > requirements.txt
 	poetry install -n
+
+#* Linting
+.PHONY: test
+test:
+	poetry run pytest -c pyproject.toml tests/
+
+.PHONY: lint
+lint: test
