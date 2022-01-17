@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
 
-def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> Tuple[int, int, float]:
+def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> tuple[int, int, float]:
     """SuperMemo-2 Algorithm (SM-2).
 
     :param quality: a performance measure ranging 0 (complete blackout) to 5 (perfect response)
@@ -57,7 +57,7 @@ class SM2Scheduler(SpacedRepetitionScheduler):
 
     def _compute_next_due_interval(
         self, attempted_at: datetime, result: Any
-    ) -> Tuple[datetime, timedelta]:
+    ) -> tuple[datetime, timedelta]:
         self._update_params(quality=result)
         new_timedelta_interval = timedelta(days=self.interval)
         prev_start_timestamp = self.due_timestamp if self.due_timestamp else attempted_at
