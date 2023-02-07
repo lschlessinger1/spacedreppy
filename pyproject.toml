@@ -22,7 +22,7 @@ pre-commit = "^3.0.1"
 isort = {extras = ["colors"], version = "^5.10.1"}
 black = {version = "^23.1", allow-prereleases = true}
 darglint = "^1.8.1"
-mypy = "^0.991"
+mypy = "^1.0"
 mypy-extensions = "^1.0.0"
 pyupgrade = "^3.0.0"
 blacken-docs = "^1.12.0"
