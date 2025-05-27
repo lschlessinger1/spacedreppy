@@ -18,7 +18,7 @@ pytest-cov = "^6.1.1"
 coverage-badge = "^1.1.0"
 bandit = "^1.7.1"
 safety = "^3.2.14"
-pre-commit = "^3.0.1"
+pre-commit = "^4.2.0"
 isort = {extras = ["colors"], version = "^6.0.1"}
 black = {version = "^25.1", allow-prereleases = true}
 darglint = "^1.8.1"
