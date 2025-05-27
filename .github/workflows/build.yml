@@ -23,10 +23,12 @@ jobs:
       - name: Set up cache for dependencies
         uses: actions/cache@v3
         with:
-          path: .venv # Directory to cache
-          key: venv-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }} # Cache key
-          restore-keys: | # Fallback key
-            venv-${{ matrix.python-version }}-
+          path: |
+            .venv # Cache virtual environment
+            ~/.cache/pypoetry # Cache Poetry's own cache directory
+          key: cache-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }} # Cache key
+          restore-keys: | # Fallback keys
+            cache-${{ matrix.python-version }}-
 
       - name: Install dependencies
         run: poetry install --sync # --sync ensures the environment strictly matches the lock file
