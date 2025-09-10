@@ -14,7 +14,7 @@ python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 pytest = "^8.3.5"
-pytest-cov = "^6.1.1"
+pytest-cov = "^7.0.0"
 coverage-badge = "^1.1.0"
 bandit = "^1.7.1"
 safety = "^3.2.14"
