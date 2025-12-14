@@ -21,7 +21,7 @@ jobs:
           virtualenvs-in-project: true # Create it in .venv in the project root, which is good for caching
 
       - name: Set up cache for dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv # Directory to cache
           key: venv-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }} # Cache key
