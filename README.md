@@ -20,9 +20,11 @@ A spaced repetition Python library.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `spacedreppy`.
+Use [uv](https://docs.astral.sh/uv/) or [pip](https://pip.pypa.io/en/stable/) to install `spacedreppy`.
 
 ```bash
+uv add spacedreppy
+# or
 pip install spacedreppy
 ```
 

@@ -9,34 +9,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true  # Create a virtual environment
-          virtualenvs-in-project: true # Create it in .venv in the project root, which is good for caching
-
-      - name: Set up cache for dependencies
-        uses: actions/cache@v5
-        with:
-          path: .venv # Directory to cache
-          key: venv-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }} # Cache key
-          restore-keys: | # Fallback key
-            venv-${{ matrix.python-version }}-
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: poetry install --sync # --sync ensures the environment strictly matches the lock file
+        run: uv sync --python ${{ matrix.python-version }}
 
       - name: Run style checks
         run: |
-          make check-codestyle
+          uv run isort --diff --check-only --settings-path pyproject.toml ./
+          uv run black --diff --check --config pyproject.toml ./
       - name: Run tests
         run: |
-          make test
+          uv run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
       - name: Run safety checks
         run: |
-          make check-safety
+          uv run bandit -ll --recursive spacedreppy tests
