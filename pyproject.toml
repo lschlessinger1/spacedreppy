@@ -102,14 +102,9 @@ addopts = [
 ]
 
 [tool.coverage.run]
-source = ["tests"]
-
-[coverage.paths]
-source = "spacedreppy"
-
-[coverage.run]
+source = ["spacedreppy"]
 branch = true
 
-[coverage.report]
+[tool.coverage.report]
 fail_under = 50
 show_missing = true
