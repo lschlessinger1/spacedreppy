@@ -46,7 +46,7 @@ def test_sm2_update_once(quality, expected_repetitions):
         ((5, 3), 2, 6),
     ],
 )
-def test_SM2_update_params_twice(qualities, expected_repetitions, expected_interval):
+def test_sm2_update_params_twice(qualities, expected_repetitions, expected_interval):
     interval, repetitions, easiness = sm2(qualities[0], interval=0, repetitions=0, easiness=2.5)
     interval, repetitions, easiness = sm2(
         qualities[1], interval=interval, repetitions=repetitions, easiness=easiness
@@ -66,7 +66,7 @@ def test_SM2_update_params_twice(qualities, expected_repetitions, expected_inter
         ((5, 3, 5), 3, 15),
     ],
 )
-def test_SM2_update_thrice(qualities, expected_repetitions, expected_interval):
+def test_sm2_update_thrice(qualities, expected_repetitions, expected_interval):
     interval, repetitions, easiness = sm2(qualities[0], interval=0, repetitions=0, easiness=2.5)
     interval, repetitions, easiness = sm2(
         qualities[1], interval=interval, repetitions=repetitions, easiness=easiness
@@ -98,7 +98,7 @@ def test_sm2_scheduler_initialization(scheduler):
     ],
 )
 def test_sm2_scheduler_compute_next_due_interval_once(scheduler, quality, expected_repetitions):
-    attempted_at = datetime.datetime.utcnow()
+    attempted_at = datetime.datetime.now(datetime.timezone.utc)
     due_timestamp, interval = scheduler.compute_next_due_interval(
         attempted_at=attempted_at, result=quality
     )
@@ -195,3 +195,12 @@ def test_sm2_invalid_inputs(quality, interval, repetitions, easiness):
 def test_spaced_repetition_scheduler_is_abstract():
     with pytest.raises(TypeError):
         SpacedRepetitionScheduler(interval=0)
+
+
+def test_sm2_easiness_floor():
+    """Easiness should never drop below 1.3, even with the worst quality."""
+    _, _, easiness = sm2(quality=0, interval=0, repetitions=0, easiness=1.3)
+    assert easiness == 1.3
+
+    _, _, easiness = sm2(quality=0, interval=1, repetitions=1, easiness=1.4)
+    assert easiness >= 1.3
