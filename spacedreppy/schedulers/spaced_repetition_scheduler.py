@@ -1,13 +1,12 @@
 from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
-from typing import Optional
 
 
 class SpacedRepetitionScheduler(ABC):
     def __init__(self, interval: int) -> None:
         self.interval = interval
-        self.interval_td: Optional[timedelta] = None
-        self.due_timestamp: Optional[datetime] = None
+        self.interval_td: timedelta | None = None
+        self.due_timestamp: datetime | None = None
 
     def compute_next_due_interval(
         self, attempted_at: datetime, result: int
