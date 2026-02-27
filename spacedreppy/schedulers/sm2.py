@@ -2,6 +2,17 @@ from datetime import datetime, timedelta
 
 from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
+# SM-2 algorithm constants
+MIN_QUALITY = 0
+MAX_QUALITY = 5
+CORRECT_QUALITY_THRESHOLD = 3
+INITIAL_INTERVAL = 1
+SECOND_INTERVAL = 6
+MIN_EASINESS = 1.3
+EASINESS_OFFSET = 0.1
+EASINESS_LINEAR_COEFF = 0.08
+EASINESS_QUADRATIC_COEFF = 0.02
+
 
 def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> tuple[int, int, float]:
     """SuperMemo-2 Algorithm (SM-2).
@@ -16,35 +27,50 @@ def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> tuple
     Returns:
         The new interval, repetition number, and easiness.
 
+    Raises:
+        ValueError: If quality is not in [0, 5], or interval, repetitions,
+            or easiness are negative.
+
     Algorithm SM-2, (C) Copyright SuperMemo World, 1991.
 
     https://www.supermemo.com
     https://www.supermemo.eu
     """
-    if quality < 3:  # Incorrect response.
-        interval = 1
+    if not MIN_QUALITY <= quality <= MAX_QUALITY:
+        raise ValueError(f"quality must be between {MIN_QUALITY} and {MAX_QUALITY}, got {quality}")
+    if interval < 0:
+        raise ValueError(f"interval must be non-negative, got {interval}")
+    if repetitions < 0:
+        raise ValueError(f"repetitions must be non-negative, got {repetitions}")
+    if easiness < 0:
+        raise ValueError(f"easiness must be non-negative, got {easiness}")
+
+    if quality < CORRECT_QUALITY_THRESHOLD:  # Incorrect response.
+        interval = INITIAL_INTERVAL
         repetitions = 0
     else:  # Correct response.
         # Set interval.
         if repetitions == 0:
-            interval = 1
+            interval = INITIAL_INTERVAL
         elif repetitions == 1:
-            interval = 6
+            interval = SECOND_INTERVAL
         else:
             interval = round(interval * easiness)
 
         repetitions += 1
 
     # Set easiness.
-    easiness += 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)
-    if easiness < 1.3:
-        easiness = 1.3
+    easiness += EASINESS_OFFSET - (MAX_QUALITY - quality) * (
+        EASINESS_LINEAR_COEFF + (MAX_QUALITY - quality) * EASINESS_QUADRATIC_COEFF
+    )
+    if easiness < MIN_EASINESS:
+        easiness = MIN_EASINESS
 
     return interval, repetitions, easiness
 
 
 class SM2Scheduler(SpacedRepetitionScheduler):
-    def __init__(self, easiness: float = 2.5, interval: int = 0, repetitions: int = 0):
+    def __init__(self, easiness: float = 2.5, interval: int = 0, repetitions: int = 0) -> None:
         super().__init__(interval=interval)
         self.easiness = easiness
         self.repetitions = repetitions
