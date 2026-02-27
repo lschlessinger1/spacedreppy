@@ -12,9 +12,7 @@ class SpacedRepetitionScheduler:
         self, attempted_at: datetime, result: Any
     ) -> tuple[datetime, timedelta]:
         """Calculate the next due timestamp and interval."""
-        self.due_timestamp, self.interval_td = self._compute_next_due_interval(
-            attempted_at, result
-        )
+        self.due_timestamp, self.interval_td = self._compute_next_due_interval(attempted_at, result)
         return self.due_timestamp, self.interval_td
 
     def _compute_next_due_interval(
