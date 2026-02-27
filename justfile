@@ -25,8 +25,8 @@ formatting: codestyle
 
 # Run tests with coverage
 test:
-    uv run pytest -c pyproject.toml tests/ --cov-report=html --cov=spacedreppy
-    uv run coverage-badge -o assets/images/coverage.svg -f
+    uv run pytest -c pyproject.toml tests/ --cov-report=html --cov-report=xml --cov=spacedreppy
+    uv run genbadge coverage -i coverage.xml -o assets/images/coverage.svg
 
 # Check code style without modifying
 check-codestyle:
