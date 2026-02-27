@@ -104,7 +104,7 @@ def test_sm2_scheduler_compute_next_due_interval_once(scheduler, quality, expect
     assert isinstance(due_timestamp, datetime.datetime)
     assert isinstance(interval, datetime.timedelta)
     assert due_timestamp == scheduler.due_timestamp
-    assert interval == scheduler.interval
+    assert interval == scheduler.interval_td
     assert interval == datetime.timedelta(days=1)
     assert scheduler.repetitions == expected_repetitions
     assert scheduler.easiness == 2.5 + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02))
@@ -135,7 +135,42 @@ def test_sm2_scheduler_compute_next_due_interval_twice(
     assert isinstance(due_timestamp_2, datetime.datetime)
     assert isinstance(interval_2, datetime.timedelta)
     assert due_timestamp_2 == scheduler.due_timestamp
-    assert interval_2 == scheduler.interval
+    assert interval_2 == scheduler.interval_td
     assert interval_2 == datetime.timedelta(days=expected_interval)
     assert scheduler.repetitions == expected_repetitions
     assert scheduler.due_timestamp == due_timestamp_1 + datetime.timedelta(days=expected_interval)
+
+
+@pytest.mark.parametrize(
+    "qualities, expected_repetitions, expected_interval",
+    [
+        ((5, 3, 5), 3, 15),
+        ((4, 4, 4), 3, 15),
+        ((5, 5, 5), 3, 16),
+        ((3, 3, 3), 3, 13),
+        ((5, 5, 1), 0, 1),
+    ],
+)
+def test_sm2_scheduler_compute_next_due_interval_thrice(
+    scheduler, qualities, expected_repetitions, expected_interval
+):
+    """Regression test: ensures self.interval stays int across 3+ calls.
+
+    Before the fix, self.interval was overwritten with a timedelta on
+    the first call, causing a TypeError on the 3rd call when
+    repetitions >= 2 and quality >= 3 (round(timedelta * float)).
+    """
+    attempted_at_1 = datetime.datetime(year=2021, month=10, day=13)
+    attempted_at_2 = datetime.datetime(year=2021, month=10, day=14)
+    attempted_at_3 = datetime.datetime(year=2021, month=10, day=15)
+    scheduler.compute_next_due_interval(attempted_at=attempted_at_1, result=qualities[0])
+    scheduler.compute_next_due_interval(attempted_at=attempted_at_2, result=qualities[1])
+    due_timestamp_3, interval_3 = scheduler.compute_next_due_interval(
+        attempted_at=attempted_at_3, result=qualities[2]
+    )
+    assert isinstance(due_timestamp_3, datetime.datetime)
+    assert isinstance(interval_3, datetime.timedelta)
+    assert interval_3 == datetime.timedelta(days=expected_interval)
+    assert scheduler.repetitions == expected_repetitions
+    assert isinstance(scheduler.interval, int)
+    assert scheduler.interval == expected_interval
