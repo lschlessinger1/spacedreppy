@@ -3,6 +3,7 @@ import datetime
 import pytest
 
 from spacedreppy.schedulers.sm2 import SM2Scheduler, sm2
+from spacedreppy.schedulers.spaced_repetition_scheduler import SpacedRepetitionScheduler
 
 
 @pytest.fixture
@@ -174,3 +175,23 @@ def test_sm2_scheduler_compute_next_due_interval_thrice(
     assert scheduler.repetitions == expected_repetitions
     assert isinstance(scheduler.interval, int)
     assert scheduler.interval == expected_interval
+
+
+@pytest.mark.parametrize(
+    "quality, interval, repetitions, easiness",
+    [
+        (-1, 0, 0, 2.5),
+        (6, 0, 0, 2.5),
+        (3, -1, 0, 2.5),
+        (3, 0, -1, 2.5),
+        (3, 0, 0, -0.1),
+    ],
+)
+def test_sm2_invalid_inputs(quality, interval, repetitions, easiness):
+    with pytest.raises(ValueError):
+        sm2(quality=quality, interval=interval, repetitions=repetitions, easiness=easiness)
+
+
+def test_spaced_repetition_scheduler_is_abstract():
+    with pytest.raises(TypeError):
+        SpacedRepetitionScheduler(interval=0)
