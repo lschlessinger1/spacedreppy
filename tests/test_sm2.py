@@ -126,7 +126,7 @@ def test_sm2_scheduler_compute_next_due_interval_twice(
 ):
     attempted_at_1 = datetime.datetime(year=2021, month=10, day=13)
     attempted_at_2 = datetime.datetime(year=2021, month=10, day=15)
-    due_timestamp_1, interval_1 = scheduler.compute_next_due_interval(
+    due_timestamp_1, _interval_1 = scheduler.compute_next_due_interval(
         attempted_at=attempted_at_1, result=qualities[0]
     )
     due_timestamp_2, interval_2 = scheduler.compute_next_due_interval(

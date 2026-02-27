@@ -17,58 +17,48 @@ dev = [
     "coverage-badge>=1.1.0",
     "bandit>=1.7.1",
     "pre-commit>=4.2.0",
-    "isort[colors]>=6.0.1",
-    "black>=25.1",
-    "darglint>=1.8.1",
+    "ruff>=0.9.0",
     "mypy>=1.0",
     "mypy-extensions>=1.0.0",
     "pyupgrade>=3.0.0",
-    "blacken-docs>=1.12.0",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.black]
-# https://github.com/psf/black
-target-version = ["py39"]
+[tool.ruff]
+# https://docs.astral.sh/ruff/
+target-version = "py39"
 line-length = 100
-color = true
 
-exclude = '''
-/(
-    \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | env
-    | venv
-)/
-'''
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "D",    # pydocstyle (replaces darglint)
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+ignore = [
+    "D100",  # Missing docstring in public module
+    "D101",  # Missing docstring in public class
+    "D104",  # Missing docstring in public package
+    "D107",  # Missing docstring in __init__
+]
 
-[tool.isort]
-# https://github.com/timothycrosley/isort/
-py_version = 39
-line_length = 100
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]  # Don't require docstrings in tests
 
-known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
-sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-include_trailing_comma = true
-profile = "black"
-multi_line_output = 3
-indent = 4
-color_output = true
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
-[tool.darglint]
-# https://github.com/terrencepreilly/darglint
-strictness = "long"
-docstring_style = "google"
+[tool.ruff.lint.isort]
+known-first-party = ["spacedreppy"]
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file

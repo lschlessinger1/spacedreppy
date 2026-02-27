@@ -10,7 +10,8 @@ def sm2(quality: int, interval: int, repetitions: int, easiness: float) -> tuple
         quality: A performance measure ranging 0 (complete blackout) to 5 (perfect response).
         interval: Inter-repetition interval after the n-th repetition (in days).
         repetitions: The number of consecutive correct answers (quality >= 3).
-        easiness: Easiness factor reflecting the easiness of memorizing and retaining a given item in memory.
+        easiness: Easiness factor reflecting the easiness of memorizing
+            and retaining a given item in memory.
 
     Returns:
         The new interval, repetition number, and easiness.

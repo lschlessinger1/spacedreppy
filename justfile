@@ -17,9 +17,8 @@ pre-commit-install:
 
 # Run formatters
 codestyle:
-    uv run isort --settings-path pyproject.toml ./
-    uv run black --config pyproject.toml ./
-    uv run darglint --verbosity 2 spacedreppy tests
+    uv run ruff format .
+    uv run ruff check --fix .
 
 # Alias for codestyle
 formatting: codestyle
@@ -31,8 +30,8 @@ test:
 
 # Check code style without modifying
 check-codestyle:
-    uv run isort --diff --check-only --settings-path pyproject.toml ./
-    uv run black --diff --check --config pyproject.toml ./
+    uv run ruff format --check .
+    uv run ruff check .
 
 # Run mypy type checker
 mypy:
