@@ -98,7 +98,7 @@ def test_sm2_scheduler_initialization(scheduler):
     ],
 )
 def test_sm2_scheduler_compute_next_due_interval_once(scheduler, quality, expected_repetitions):
-    attempted_at = datetime.datetime.now(datetime.timezone.utc)
+    attempted_at = datetime.datetime.now(datetime.UTC)
     due_timestamp, interval = scheduler.compute_next_due_interval(
         attempted_at=attempted_at, result=quality
     )
