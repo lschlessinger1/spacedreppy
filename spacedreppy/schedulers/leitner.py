@@ -62,9 +62,7 @@ class LeitnerScheduler(SpacedRepetitionScheduler):
         self.num_boxes = len(self.intervals)
 
         if not 0 <= current_box < self.num_boxes:
-            raise ValueError(
-                f"current_box must be in [0, {self.num_boxes}), got {current_box}"
-            )
+            raise ValueError(f"current_box must be in [0, {self.num_boxes}), got {current_box}")
         self.current_box = current_box
 
     def _update_params(self, result: int) -> None:
