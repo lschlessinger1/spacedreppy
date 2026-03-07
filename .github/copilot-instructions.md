@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-SpacedRepPy is a spaced repetition Python library implementing the SM-2 algorithm. It provides a scheduler abstraction (`SpacedRepetitionScheduler`) with a concrete SM-2 implementation (`SM2Scheduler`).
+SpacedRepPy is a spaced repetition Python library implementing the SM-2 and Leitner system algorithms. It provides a scheduler abstraction (`SpacedRepetitionScheduler`) with concrete implementations: `SM2Scheduler` and `LeitnerScheduler`.
 
 ## Tech Stack
 
@@ -28,7 +28,9 @@ SpacedRepPy is a spaced repetition Python library implementing the SM-2 algorith
 
 - `spacedreppy/schedulers/spaced_repetition_scheduler.py` — Abstract base class defining the scheduler interface.
 - `spacedreppy/schedulers/sm2.py` — SM-2 algorithm implementation and `SM2Scheduler` class.
-- `tests/test_sm2.py` — Test suite using pytest with parametrized tests.
+- `spacedreppy/schedulers/leitner.py` — Leitner system implementation and `LeitnerScheduler` class.
+- `tests/test_sm2.py` — SM-2 test suite using pytest with parametrized tests.
+- `tests/test_leitner.py` — Leitner test suite using pytest with parametrized tests.
 
 ## Development Workflow
 
@@ -45,4 +47,4 @@ just lint           # Run all checks (tests + style + mypy + safety)
 - All code must pass mypy in strict mode (see `[tool.mypy]` in `pyproject.toml`).
 - All code must pass ruff linting and formatting checks.
 - Tests use `pytest.mark.parametrize` extensively — follow this pattern for new tests.
-- Keep the SM-2 algorithm pure function (`sm2()`) separate from the scheduler class.
+- Keep algorithm pure functions (`sm2()`, `leitner()`) separate from their scheduler classes.

@@ -23,6 +23,8 @@ pip install spacedreppy
 
 ## Usage
 
+### SM-2
+
 ```python
 from datetime import datetime, timezone
 from spacedreppy import SM2Scheduler
@@ -47,6 +49,33 @@ The `result` parameter is a quality score from the SM-2 algorithm:
 | 5 | Perfect response with no hesitation |
 
 Scores of 3 or higher count as correct and advance the repetition schedule. Scores below 3 reset the interval.
+
+### Leitner System
+
+```python
+from datetime import datetime, timezone
+from spacedreppy import LeitnerScheduler
+
+scheduler = LeitnerScheduler()
+
+# result=1 for correct, result=0 for incorrect
+due_timestamp, interval = scheduler.compute_next_due_interval(
+    attempted_at=datetime.now(timezone.utc), result=1
+)
+```
+
+The `result` parameter is a binary score:
+
+| Score | Meaning |
+|-------|---------|
+| 0 | Incorrect |
+| 1 | Correct |
+
+Correct answers promote the card to the next box; incorrect answers send it back to the first box. The default box intervals (in days) are `[1, 3, 7, 14, 30]`, but you can provide your own:
+
+```python
+scheduler = LeitnerScheduler(intervals=[2, 5, 10])
+```
 
 ## Development
 
