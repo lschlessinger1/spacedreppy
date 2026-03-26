@@ -1,7 +1,7 @@
 
 # SpacedRepPy
 
-[![Build status](https://github.com/lschlessinger1/spacedreppy/workflows/build/badge.svg?branch=main&event=push)](https://github.com/lschlessinger1/spacedreppy/actions?query=workflow%3Abuild)
+[![Build status](https://github.com/lschlessinger1/spacedreppy/actions/workflows/build.yml/badge.svg)](https://github.com/lschlessinger1/spacedreppy/actions/workflows/build.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/spacedreppy.svg)](https://pypi.org/project/spacedreppy/)
 [![License](https://img.shields.io/github/license/lschlessinger1/spacedreppy)](https://github.com/lschlessinger1/spacedreppy/blob/main/LICENSE)
 [![Code style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
