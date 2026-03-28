@@ -9,7 +9,7 @@
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/lschlessinger1/spacedreppy/blob/main/.pre-commit-config.yaml)
 ![Coverage Report](assets/images/coverage.svg)
 
-A spaced repetition Python library.
+A spaced repetition Python library implementing SM-2, Leitner, and FSRS-6 algorithms.
 
 ## Installation
 
@@ -75,6 +75,44 @@ Correct answers promote the card to the next box; incorrect answers send it back
 
 ```python
 scheduler = LeitnerScheduler(intervals=[2, 5, 10])
+```
+
+### FSRS-6
+
+```python
+from datetime import datetime, timezone
+from spacedreppy import FSRSScheduler
+
+scheduler = FSRSScheduler()
+
+# result: 1=Again, 2=Hard, 3=Good, 4=Easy
+due_timestamp, interval = scheduler.compute_next_due_interval(
+    attempted_at=datetime.now(timezone.utc), result=3
+)
+```
+
+The `result` parameter is a rating from the FSRS algorithm:
+
+| Rating | Meaning |
+|--------|---------|
+| 1 (Again) | Forgot the card |
+| 2 (Hard) | Remembered with serious difficulty |
+| 3 (Good) | Remembered after some hesitation |
+| 4 (Easy) | Remembered easily |
+
+FSRS-6 models memory with **Stability** (S) and **Difficulty** (D), using a power-law forgetting curve with 21 trainable parameters. You can customize the scheduler:
+
+```python
+scheduler = FSRSScheduler(
+    request_retention=0.85,   # target retention (default: 0.9)
+    maximum_interval=365,     # max interval in days (default: 36500)
+)
+```
+
+Custom model weights (e.g., from the [FSRS optimizer](https://github.com/open-spaced-repetition/fsrs4anki)) can also be provided:
+
+```python
+scheduler = FSRSScheduler(weights=my_optimized_weights)
 ```
 
 ## Development

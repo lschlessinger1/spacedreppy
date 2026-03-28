@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-SpacedRepPy is a spaced repetition Python library implementing the SM-2 and Leitner system algorithms. It provides a scheduler abstraction (`SpacedRepetitionScheduler`) with concrete implementations: `SM2Scheduler` and `LeitnerScheduler`.
+SpacedRepPy is a spaced repetition Python library implementing the SM-2, Leitner system, and FSRS-6 algorithms. It provides a scheduler abstraction (`SpacedRepetitionScheduler`) with concrete implementations: `SM2Scheduler`, `LeitnerScheduler`, and `FSRSScheduler`.
 
 ## Tech Stack
 
@@ -29,8 +29,10 @@ SpacedRepPy is a spaced repetition Python library implementing the SM-2 and Leit
 - `spacedreppy/schedulers/spaced_repetition_scheduler.py` — Abstract base class defining the scheduler interface.
 - `spacedreppy/schedulers/sm2.py` — SM-2 algorithm implementation and `SM2Scheduler` class.
 - `spacedreppy/schedulers/leitner.py` — Leitner system implementation and `LeitnerScheduler` class.
+- `spacedreppy/schedulers/fsrs.py` — FSRS-6 algorithm implementation and `FSRSScheduler` class.
 - `tests/test_sm2.py` — SM-2 test suite using pytest with parametrized tests.
 - `tests/test_leitner.py` — Leitner test suite using pytest with parametrized tests.
+- `tests/test_fsrs.py` — FSRS-6 test suite using pytest with parametrized tests.
 
 ## Development Workflow
 
@@ -47,4 +49,4 @@ just lint           # Run all checks (tests + style + mypy + safety)
 - All code must pass mypy in strict mode (see `[tool.mypy]` in `pyproject.toml`).
 - All code must pass ruff linting and formatting checks.
 - Tests use `pytest.mark.parametrize` extensively — follow this pattern for new tests.
-- Keep algorithm pure functions (`sm2()`, `leitner()`) separate from their scheduler classes.
+- Keep algorithm pure functions (`sm2()`, `leitner()`, `fsrs()`) separate from their scheduler classes.
