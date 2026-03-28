@@ -1,11 +1,11 @@
 # SpacedRepPy
 
-A spaced repetition Python library implementing SM-2 and Leitner scheduling algorithms.
+A spaced repetition Python library implementing SM-2, Leitner, and FSRS-6 scheduling algorithms.
 
 ## Project Structure
 
-- `spacedreppy/schedulers/` - Core scheduler implementations (SM-2, Leitner, base class)
-- `tests/` - Test files (`test_sm2.py`, `test_leitner.py`)
+- `spacedreppy/schedulers/` - Core scheduler implementations (SM-2, Leitner, FSRS-6, base class)
+- `tests/` - Test files (`test_sm2.py`, `test_leitner.py`, `test_fsrs.py`)
 - `justfile` - Task runner commands
 - `pyproject.toml` - Project config, linting, typing, and test settings
 
